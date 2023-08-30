@@ -58,7 +58,7 @@ function renderTasks() {
 }
 
 function startButtonHandler(id) {
-  time = 0.5 * 60;
+  time = 5;
   current = id;
   const taskId = tasks.findIndex((task) => task.id === id);
   document.querySelector("#time #taskName").textContent = tasks[taskId].title;
@@ -73,6 +73,7 @@ function timerHandler(id = null) {
   if (time === 0) {
     markComplete(id);
     clearInterval(timer);
+    timer = null;
     renderTasks();
     startBreak();
   }
@@ -84,7 +85,7 @@ function markComplete(id) {
 }
 
 function startBreak() {
-  time = 1 * 60;
+  time = 5;
   document.querySelector("#time #taskName").textContent = "Break";
   timerBreak = setInterval(timerBreakHandler, 1000);
 }
@@ -94,6 +95,7 @@ function timerBreakHandler() {
   renderTime();
   if (time === 0) {
     clearInterval(timerBreak);
+    timerBreak = null;
     current = null;
     document.querySelector("#time #taskName").textContent = "";
     renderTime();
